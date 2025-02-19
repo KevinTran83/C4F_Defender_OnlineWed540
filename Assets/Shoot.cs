@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     public GameObject bullet;
+    public Transform spawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,9 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, transform.position, transform.rotation);
+            Instantiate ( bullet, spawnPoint.position,
+                                  spawnPoint.rotation
+                        );
         }
     }
 
