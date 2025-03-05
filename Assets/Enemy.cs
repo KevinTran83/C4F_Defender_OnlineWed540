@@ -19,12 +19,29 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         hp = GetComponent<HP>();
 
-        transform.LookAt(target.transform);
-        rb.velocity = speed * transform.forward;
+        if (target != null)
+        {
+            transform.LookAt(target.transform);
+            rb.velocity = speed * transform.forward;
+        }
     }
 
     void OnCollisionEnter(Collision col)
     {
         if (hp != null) hp.ChangeHP(-30);
+    }
+
+    void Update()
+    {
+        if (target == null) return;
+        if (Vector3.Distance( transform.position,
+                              target.transform.position
+                             ) < 5
+           )
+        {
+            HP targetHp = target.GetComponent<HP>();
+            targetHp.ChangeHP(-50);
+            Destroy(gameObject);
+        }
     }
 }
